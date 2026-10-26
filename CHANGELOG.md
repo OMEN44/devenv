@@ -11,6 +11,8 @@
 
 ### Bug Fixes
 
+- Fixed process output in the TUI showing raw colour codes such as `[31m` instead of colours, in both the inline preview and the full-screen log view. Search and copy in the log view work on the visible text.
+- Fixed `print` output from Python processes not appearing in the TUI until a large amount had accumulated. Processes now run with `PYTHONUNBUFFERED=1` unless it is already set.
 - Locked inputs with complete source metadata now reuse sources from the Nix store or configured binary caches without contacting their original remote, so `devenv shell` works when that remote is unavailable ([#3244](https://github.com/cachix/devenv/pull/3244)).
 - Fixed cold remote YAML imports failing to load fetched sources, and allowed root input follows to reference inputs declared by imported YAML.
 - Fixed remote YAML discovery resolving relative local inputs from the filesystem root instead of the project directory.
