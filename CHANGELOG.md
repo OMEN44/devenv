@@ -4,7 +4,7 @@
 
 ### Improvements
 
-- The `devenv shell` status line now shows the active profiles in place of `devenv`, for example `backend, fast-startup watching 4 files` after `devenv --profile backend --profile fast-startup shell`.
+- The `devenv shell` status line now shows the active profiles in place of `devenv`, for example `backend, fast-startup watching 4 files` after `devenv --profile backend --profile fast-startup shell`. Long lists are shortened, such as `backend, basic, fast-startup +1`.
 - `q` now detaches from `devenv processes attach` straight away, leaving the processes running, and detaches from its interrupt prompt too. In a foreground `devenv up`, where quitting stops the processes, `q` opens the quit prompt ([#3264](https://github.com/cachix/devenv/issues/3264)).
 - Added the `tui.emoji` user setting. Set it to `false` to replace the emoji in the interactive shell status line, such as the eye in `devenv watching 11 files`, with non-emoji Unicode glyphs. It defaults to `true`, and the status line stays visible with file watching and automatic reload unchanged.
 - Updating a remote configuration now composes its updated YAML and dependencies before writing `devenv.lock`, so a second invocation is not needed to finish the update.
@@ -12,6 +12,7 @@
 
 ### Bug Fixes
 
+- Fixed `devenv shell` crashing when its status line shortened a changed file name containing non-ASCII characters, and fixed status text being squeezed into fragments in narrow terminals.
 - Fixed process output in the TUI showing raw colour codes such as `[31m` instead of colours, in both the inline preview and the full-screen log view. 16-colour, 256-colour and true-colour codes are supported, and other terminal control sequences are no longer shown as text. Search and copy in the log view work on the visible text.
 - Fixed `print` output from Python processes not appearing in the TUI until a large amount had accumulated. Processes now run with `PYTHONUNBUFFERED=1` unless it is already set.
 - Locked inputs with complete source metadata now reuse sources from the Nix store or configured binary caches without contacting their original remote, so `devenv shell` works when that remote is unavailable ([#3244](https://github.com/cachix/devenv/pull/3244)).
